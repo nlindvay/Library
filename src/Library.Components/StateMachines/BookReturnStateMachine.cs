@@ -33,7 +33,7 @@ namespace Library.Components.StateMachines
                 When(BookReturned)
                     .Then(context =>
                     {
-                        context.Saga.BookId = context.Message.BookId;
+                        context.Saga.BookInstanceId = context.Message.BookInstanceId;
                         context.Saga.MemberId = context.Message.MemberId;
                         context.Saga.CheckOutDate = context.Message.Timestamp;
                         context.Saga.DueDate = context.Message.DueDate;

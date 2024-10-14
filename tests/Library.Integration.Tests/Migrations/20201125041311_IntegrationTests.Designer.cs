@@ -26,7 +26,7 @@ namespace Library.Integration.Tests.Migrations
                     b.Property<Guid>("CorrelationId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BookId")
+                    b.Property<Guid>("BookInstanceId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("CurrentState")
@@ -43,7 +43,7 @@ namespace Library.Integration.Tests.Migrations
 
                     b.HasKey("CorrelationId");
 
-                    b.HasIndex("BookId", "MemberId")
+                    b.HasIndex("BookInstanceId", "MemberId")
                         .IsUnique();
 
                     b.ToTable("ThankYou");

@@ -14,7 +14,7 @@ namespace Library.Components.StateMachines
 
             Event(() => BookReserved, x =>
             {
-                x.CorrelateBy((instance, context) => context.Message.BookId == instance.BookId && context.Message.MemberId == instance.MemberId)
+                x.CorrelateBy((instance, context) => context.Message.BookInstanceId == instance.BookInstanceId && context.Message.MemberId == instance.MemberId)
                     .SelectId(context => context.MessageId ?? NewId.NextGuid());
 
                 x.InsertOnInitial = true;
@@ -22,7 +22,7 @@ namespace Library.Components.StateMachines
 
             Event(() => BookCheckedOut, x =>
             {
-                x.CorrelateBy((instance, context) => context.Message.BookId == instance.BookId && context.Message.MemberId == instance.MemberId)
+                x.CorrelateBy((instance, context) => context.Message.BookInstanceId == instance.BookInstanceId && context.Message.MemberId == instance.MemberId)
                     .SelectId(context => context.MessageId ?? NewId.NextGuid());
 
                 x.InsertOnInitial = true;
@@ -43,7 +43,7 @@ namespace Library.Components.StateMachines
                 When(BookReserved)
                     .Then(context =>
                     {
-                        context.Saga.BookId = context.Message.BookId;
+                        context.Saga.BookInstanceId = context.Message.BookInstanceId;
                         context.Saga.MemberId = context.Message.MemberId;
 
                         context.Saga.ReservationId = context.Message.ReservationId;
@@ -52,7 +52,7 @@ namespace Library.Components.StateMachines
                 When(BookCheckedOut)
                     .Then(context =>
                     {
-                        context.Saga.BookId = context.Message.BookId;
+                        context.Saga.BookInstanceId = context.Message.BookInstanceId;
                         context.Saga.MemberId = context.Message.MemberId;
                     })
                     .TransitionTo(Active)
@@ -78,7 +78,7 @@ namespace Library.Components.StateMachines
                     .RespondAsync(context => context.Init<ThankYouStatus>(new
                     {
                         context.Saga.MemberId,
-                        context.Saga.BookId,
+                        context.Saga.BookInstanceId,
                         Status = context.StateMachine.Accessor.Get(context)
                     })));
 

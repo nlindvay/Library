@@ -20,7 +20,7 @@ namespace Library.Components.StateMachines
 
             Event(() => BookReserved, x => x.CorrelateById(m => m.Message.ReservationId));
 
-            Event(() => BookCheckedOut, x => x.CorrelateBy((instance, context) => instance.BookId == context.Message.BookId));
+            Event(() => BookCheckedOut, x => x.CorrelateBy((instance, context) => instance.BookInstanceId == context.Message.BookInstanceId));
 
             Schedule(() => ExpirationSchedule, x => x.ExpirationTokenId, x => x.Delay = TimeSpan.FromHours(24));
 
@@ -29,7 +29,7 @@ namespace Library.Components.StateMachines
                     .Then(context =>
                     {
                         context.Saga.Created = context.Message.Timestamp;
-                        context.Saga.BookId = context.Message.BookId;
+                        context.Saga.BookInstanceId = context.Message.BookInstanceId;
                         context.Saga.MemberId = context.Message.MemberId;
                     })
                     .TransitionTo(Requested),
@@ -37,7 +37,7 @@ namespace Library.Components.StateMachines
                     .Then(context =>
                     {
                         context.Saga.Created = context.Message.Timestamp;
-                        context.Saga.BookId = context.Message.BookId;
+                        context.Saga.BookInstanceId = context.Message.BookInstanceId;
                         context.Saga.MemberId = context.Message.MemberId;
                         context.Saga.Reserved = context.Message.Timestamp;
                     })
@@ -98,7 +98,7 @@ namespace Library.Components.StateMachines
             return binder.PublishAsync(context => context.Init<BookReservationCanceled>(new
             {
                 ReservationId = context.Saga.CorrelationId,
-                context.Saga.BookId
+                context.Saga.BookInstanceId
             }));
         }
     }

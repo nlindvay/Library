@@ -6,7 +6,7 @@ namespace Library.Contracts
     public interface ThankYouStatus
     {
         Guid MemberId { get; }
-        Guid BookId { get; }
+        Guid BookInstanceId { get; }
         string Status { get; }
     }
 }

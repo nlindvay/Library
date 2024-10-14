@@ -11,6 +11,6 @@ namespace Library.Contracts
 
         Guid MemberId { get; }
 
-        Guid BookId { get; }
+        Guid BookInstanceId { get; }
     }
 }

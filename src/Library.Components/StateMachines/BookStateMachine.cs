@@ -6,7 +6,7 @@ namespace Library.Components.StateMachines
 
     // ReSharper disable UnassignedGetOnlyAutoProperty MemberCanBePrivate.Global
     public sealed class BookStateMachine :
-        MassTransitStateMachine<Book>
+        MassTransitStateMachine<BookInstance>
     {
         static BookStateMachine()
         {
@@ -17,7 +17,7 @@ namespace Library.Components.StateMachines
         {
             InstanceState(x => x.CurrentState, Available, Reserved);
 
-            Event(() => ReservationRequested, x => x.CorrelateById(m => m.Message.BookId));
+            Event(() => ReservationRequested, x => x.CorrelateById(m => m.Message.BookInstanceId));
 
             Initially(
                 When(Added)
@@ -61,7 +61,7 @@ namespace Library.Components.StateMachines
 
     public static class BookStateMachineExtensions
     {
-        public static EventActivityBinder<Book, BookAdded> CopyDataToInstance(this EventActivityBinder<Book, BookAdded> binder)
+        public static EventActivityBinder<BookInstance, BookAdded> CopyDataToInstance(this EventActivityBinder<BookInstance, BookAdded> binder)
         {
             return binder.Then(x =>
             {
@@ -71,14 +71,14 @@ namespace Library.Components.StateMachines
             });
         }
 
-        public static EventActivityBinder<Book, ReservationRequested> PublishBookReserved(this EventActivityBinder<Book, ReservationRequested> binder)
+        public static EventActivityBinder<BookInstance, ReservationRequested> PublishBookReserved(this EventActivityBinder<BookInstance, ReservationRequested> binder)
         {
             return binder.PublishAsync(context => context.Init<BookReserved>(new
             {
                 context.Message.ReservationId,
                 context.Message.MemberId,
                 context.Message.Duration,
-                context.Message.BookId,
+                context.Message.BookInstanceId,
                 InVar.Timestamp
             }));
         }

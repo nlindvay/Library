@@ -13,7 +13,7 @@ namespace Library.Integration.Tests.Migrations
                 {
                     CorrelationId = table.Column<Guid>(nullable: false),
                     CurrentState = table.Column<int>(nullable: false),
-                    BookId = table.Column<Guid>(nullable: false),
+                    BookInstanceId = table.Column<Guid>(nullable: false),
                     MemberId = table.Column<Guid>(nullable: false),
                     ReservationId = table.Column<Guid>(nullable: true),
                     ThankYouStatus = table.Column<int>(nullable: false)
@@ -24,9 +24,9 @@ namespace Library.Integration.Tests.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ThankYou_BookId_MemberId",
+                name: "IX_ThankYou_BookInstanceId_MemberId",
                 table: "ThankYou",
-                columns: new[] { "BookId", "MemberId" },
+                columns: new[] { "BookInstanceId", "MemberId" },
                 unique: true);
         }
 

@@ -29,7 +29,7 @@ namespace Library.Components.Tests
             await harness.Start();
 
             var checkOutId = NewId.NextGuid();
-            var bookId = NewId.NextGuid();
+            var bookInstanceId = NewId.NextGuid();
             var memberId = NewId.NextGuid();
 
             var now = DateTime.UtcNow;
@@ -38,7 +38,7 @@ namespace Library.Components.Tests
             {
                 CheckOutId = checkOutId,
                 InVar.Timestamp,
-                BookId = bookId,
+                BookInstanceId = bookInstanceId,
                 MemberId = memberId,
                 CheckOutDate = now - TimeSpan.FromDays(28),
                 DueDate = now - TimeSpan.FromDays(14),
@@ -76,7 +76,7 @@ namespace Library.Components.Tests
             await harness.Start();
 
             var checkOutId = NewId.NextGuid();
-            var bookId = NewId.NextGuid();
+            var bookInstanceId = NewId.NextGuid();
             var memberId = NewId.NextGuid();
 
             var now = DateTime.UtcNow;
@@ -85,7 +85,7 @@ namespace Library.Components.Tests
             {
                 CheckOutId = checkOutId,
                 InVar.Timestamp,
-                BookId = bookId,
+                BookInstanceId = bookInstanceId,
                 MemberId = memberId,
                 CheckOutDate = now - TimeSpan.FromDays(28),
                 DueDate = now - TimeSpan.FromDays(14),

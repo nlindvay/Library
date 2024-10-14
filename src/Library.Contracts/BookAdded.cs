@@ -5,10 +5,11 @@
 
     public interface BookAdded
     {
-        Guid BookId { get; }
+        Guid BookInstanceId { get; }
 
         DateTime Timestamp { get; }
 
+        Guid BookId { get; set; }
         string Isbn { get; }
         string Title { get; }
     }

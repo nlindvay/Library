@@ -31,12 +31,12 @@ namespace Library.Integration.Tests
             var sagaId = NewId.NextGuid();
 
             var reservationId = NewId.NextGuid();
-            var bookId = NewId.NextGuid();
+            var bookInstanceId = NewId.NextGuid();
             var memberId = NewId.NextGuid();
 
             await harness.Bus.Publish<BookReserved>(new
             {
-                bookId,
+                bookInstanceId,
                 memberId,
                 reservationId,
                 Duration = TimeSpan.FromDays(14),
@@ -52,7 +52,7 @@ namespace Library.Integration.Tests
             await harness.Bus.Publish<BookCheckedOut>(new
             {
                 CheckOutId = InVar.Id,
-                bookId,
+                bookInstanceId,
                 memberId,
                 InVar.Timestamp,
                 __MessageId = sagaId
@@ -81,13 +81,13 @@ namespace Library.Integration.Tests
             var sagaId = NewId.NextGuid();
 
             var reservationId = NewId.NextGuid();
-            var bookId = NewId.NextGuid();
+            var bookInstanceId = NewId.NextGuid();
             var memberId = NewId.NextGuid();
 
             await harness.Bus.Publish<BookCheckedOut>(new
             {
                 CheckOutId = InVar.Id,
-                bookId,
+                bookInstanceId,
                 memberId,
                 InVar.Timestamp,
                 __MessageId = sagaId
@@ -100,7 +100,7 @@ namespace Library.Integration.Tests
 
             await harness.Bus.Publish<BookReserved>(new
             {
-                bookId,
+                bookInstanceId,
                 memberId,
                 reservationId,
                 Duration = TimeSpan.FromDays(14),
@@ -131,13 +131,13 @@ namespace Library.Integration.Tests
             var sagaId = NewId.NextGuid();
 
             var reservationId = NewId.NextGuid();
-            var bookId = NewId.NextGuid();
+            var bookInstanceId = NewId.NextGuid();
             var memberId = NewId.NextGuid();
 
             await harness.Bus.Publish<BookCheckedOut>(new
             {
                 CheckOutId = InVar.Id,
-                bookId,
+                bookInstanceId,
                 memberId,
                 InVar.Timestamp,
                 __MessageId = sagaId
@@ -159,7 +159,7 @@ namespace Library.Integration.Tests
 
             await harness.Bus.Publish<BookReserved>(new
             {
-                bookId,
+                bookInstanceId,
                 memberId,
                 reservationId,
                 Duration = TimeSpan.FromDays(14),
