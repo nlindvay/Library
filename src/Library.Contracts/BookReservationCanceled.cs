@@ -5,7 +5,7 @@ namespace Library.Contracts
 
     public interface BookReservationCanceled
     {
-        Guid BookInstanceId { get; }
+        Guid BookId { get; }
 
         Guid ReservationId { get; }
     }

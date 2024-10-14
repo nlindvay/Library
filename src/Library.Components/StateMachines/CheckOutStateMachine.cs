@@ -19,10 +19,10 @@ namespace Library.Components.StateMachines
             Event(() => BookCheckedOut, x => x.CorrelateById(m => m.Message.CheckOutId));
 
             Event(() => AddedToCollection, x => x.CorrelateBy((instance, context) =>
-                instance.BookInstanceId == context.Message.BookInstanceId && instance.MemberId == context.Message.MemberId));
+                instance.BookId == context.Message.BookId && instance.MemberId == context.Message.MemberId));
 
             Event(() => AddToCollectionFaulted, x => x.CorrelateBy((instance, context) =>
-                instance.BookInstanceId == context.Message.Message.BookInstanceId && instance.MemberId == context.Message.Message.MemberId));
+                instance.BookId == context.Message.Message.BookId && instance.MemberId == context.Message.Message.MemberId));
 
             Event(() => RenewCheckOutRequested, x => x.OnMissingInstance(m => m.ExecuteAsync(a => a.RespondAsync<CheckOutNotFound>(a.Message))));
 
@@ -32,7 +32,7 @@ namespace Library.Components.StateMachines
                 When(BookCheckedOut)
                     .Then(context =>
                     {
-                        context.Saga.BookInstanceId = context.Message.BookInstanceId;
+                        context.Saga.BookId = context.Message.BookId;
                         context.Saga.MemberId = context.Message.MemberId;
                         context.Saga.CheckOutDate = context.Message.Timestamp;
                         context.Saga.DueDate = context.Saga.CheckOutDate + settings.CheckOutDuration;
@@ -41,7 +41,7 @@ namespace Library.Components.StateMachines
                     .PublishAsync(x => x.Init<AddBookToMemberCollection>(new
                     {
                         x.Saga.MemberId,
-                        x.Saga.BookInstanceId
+                        x.Saga.BookId
                     }))
                     .TransitionTo(CheckedOut));
 

@@ -18,7 +18,7 @@ namespace Library.Components.Tests
             await using var provider = new ServiceCollection()
                 .ConfigureMassTransit(x =>
                 {
-                    x.AddSagaStateMachine<BookStateMachine, BookInstance>();
+                    x.AddSagaStateMachine<BookStateMachine, Book>();
                 })
                 .BuildServiceProvider(true);
 
@@ -26,27 +26,27 @@ namespace Library.Components.Tests
 
             await harness.Start();
 
-            var bookInstanceId = NewId.NextGuid();
+            var bookId = NewId.NextGuid();
 
             await harness.Bus.Publish<BookAdded>(new
             {
-                BookInstanceId = bookInstanceId,
+                BookId = bookId,
                 Isbn = "0307969959",
                 Title = "Neuromancer"
             });
 
             Assert.IsTrue(await harness.Consumed.Any<BookAdded>(), "Message not consumed");
 
-            var sagaHarness = harness.GetSagaStateMachineHarness<BookStateMachine, BookInstance>();
+            var sagaHarness = harness.GetSagaStateMachineHarness<BookStateMachine, Book>();
 
             Assert.IsTrue(await sagaHarness.Consumed.Any<BookAdded>(), "Message not consumed by saga");
 
-            Assert.That(await sagaHarness.Created.Any(x => x.CorrelationId == bookInstanceId));
+            Assert.That(await sagaHarness.Created.Any(x => x.CorrelationId == bookId));
 
-            var instance = sagaHarness.Created.ContainsInState(bookInstanceId, sagaHarness.StateMachine, sagaHarness.StateMachine.Available);
+            var instance = sagaHarness.Created.ContainsInState(bookId, sagaHarness.StateMachine, sagaHarness.StateMachine.Available);
             Assert.IsNotNull(instance, "Saga instance not found");
 
-            Guid? existsId = await sagaHarness.Exists(bookInstanceId, x => x.Available);
+            Guid? existsId = await sagaHarness.Exists(bookId, x => x.Available);
             Assert.IsTrue(existsId.HasValue, "Saga did not exist");
         }
     }
@@ -60,7 +60,7 @@ namespace Library.Components.Tests
             await using var provider = new ServiceCollection()
                 .ConfigureMassTransit(x =>
                 {
-                    x.AddSagaStateMachine<BookStateMachine, BookInstance>();
+                    x.AddSagaStateMachine<BookStateMachine, Book>();
                 })
                 .BuildServiceProvider(true);
 
@@ -68,27 +68,27 @@ namespace Library.Components.Tests
 
             await harness.Start();
 
-            var bookInstanceId = NewId.NextGuid();
+            var bookId = NewId.NextGuid();
 
             await harness.Bus.Publish<BookAdded>(new
             {
-                BookInstanceId = bookInstanceId,
+                BookId = bookId,
                 Isbn = "0307969959",
                 Title = "Neuromancer"
             });
 
-            var sagaHarness = harness.GetSagaStateMachineHarness<BookStateMachine, BookInstance>();
+            var sagaHarness = harness.GetSagaStateMachineHarness<BookStateMachine, Book>();
 
-            Guid? existsId = await sagaHarness.Exists(bookInstanceId, x => x.Available);
+            Guid? existsId = await sagaHarness.Exists(bookId, x => x.Available);
             Assert.IsTrue(existsId.HasValue, "Saga did not exist");
 
             await harness.Bus.Publish<BookCheckedOut>(new
             {
-                BookInstanceId = bookInstanceId,
+                BookId = bookId,
                 InVar.Timestamp
             });
 
-            existsId = await sagaHarness.Exists(bookInstanceId, x => x.CheckedOut);
+            existsId = await sagaHarness.Exists(bookId, x => x.CheckedOut);
             Assert.IsTrue(existsId.HasValue, "Saga was not checked out");
         }
     }

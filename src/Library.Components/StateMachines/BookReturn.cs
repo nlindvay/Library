@@ -9,7 +9,7 @@ namespace Library.Components.StateMachines
     {
         public int CurrentState { get; set; }
 
-        public Guid BookInstanceId { get; set; }
+        public Guid BookId { get; set; }
         public Guid MemberId { get; set; }
         public DateTime CheckOutDate { get; set; }
         public DateTime DueDate { get; set; }

@@ -5,7 +5,7 @@ namespace Library.Contracts
 
     public interface BookAddedToMemberCollection
     {
-        Guid BookInstanceId { get; }
+        Guid BookId { get; }
         Guid MemberId { get; }
     }
 }

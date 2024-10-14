@@ -10,7 +10,7 @@ namespace Library.Contracts
         DateTime Timestamp { get; }
 
         Guid MemberId { get; }
-        Guid BookInstanceId { get; }
+        Guid BookId { get; }
 
         DateTime CheckOutDate { get; }
         DateTime DueDate { get; }

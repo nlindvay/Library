@@ -30,7 +30,7 @@ namespace Library.Components.Tests
 
             await harness.Start();
 
-            var bookInstanceId = NewId.NextGuid();
+            var bookId = NewId.NextGuid();
             var checkOutId = NewId.NextGuid();
 
             var now = DateTime.UtcNow;
@@ -38,7 +38,7 @@ namespace Library.Components.Tests
             await harness.Bus.Publish<BookCheckedOut>(new
             {
                 CheckOutId = checkOutId,
-                BookInstanceId = bookInstanceId,
+                BookId = bookId,
                 InVar.Timestamp,
                 MemberId = NewId.NextGuid()
             });
@@ -90,7 +90,7 @@ namespace Library.Components.Tests
 
             await harness.Start();
 
-            var bookInstanceId = NewId.NextGuid();
+            var bookId = NewId.NextGuid();
             var checkOutId = NewId.NextGuid();
 
             var now = DateTime.UtcNow;
@@ -98,7 +98,7 @@ namespace Library.Components.Tests
             await harness.Bus.Publish<BookCheckedOut>(new
             {
                 CheckOutId = checkOutId,
-                BookInstanceId = bookInstanceId,
+                BookId = bookId,
                 InVar.Timestamp,
                 MemberId = NewId.NextGuid()
             });
@@ -174,7 +174,7 @@ namespace Library.Components.Tests
 
             await harness.Start();
 
-            var bookInstanceId = NewId.NextGuid();
+            var bookId = NewId.NextGuid();
             var checkOutId = NewId.NextGuid();
 
             var now = DateTime.UtcNow;
@@ -183,7 +183,7 @@ namespace Library.Components.Tests
             await harness.Bus.Publish<BookCheckedOut>(new
             {
                 CheckOutId = checkOutId,
-                BookInstanceId = bookInstanceId,
+                BookId = bookId,
                 InVar.Timestamp,
                 MemberId = NewId.NextGuid()
             });
@@ -237,14 +237,14 @@ namespace Library.Components.Tests
 
             await harness.Start();
 
-            var bookInstanceId = NewId.NextGuid();
+            var bookId = NewId.NextGuid();
             var checkOutId = NewId.NextGuid();
             var memberId = NewId.NextGuid();
 
             await harness.Bus.Publish<BookCheckedOut>(new
             {
                 CheckOutId = checkOutId,
-                BookInstanceId = bookInstanceId,
+                BookId = bookId,
                 InVar.Timestamp,
                 MemberId = memberId
             });
@@ -293,14 +293,14 @@ namespace Library.Components.Tests
 
             await harness.Start();
 
-            var bookInstanceId = NewId.NextGuid();
+            var bookId = NewId.NextGuid();
             var checkOutId = NewId.NextGuid();
             var memberId = NewId.NextGuid();
 
             await harness.Bus.Publish<BookCheckedOut>(new
             {
                 CheckOutId = checkOutId,
-                BookInstanceId = bookInstanceId,
+                BookId = bookId,
                 InVar.Timestamp,
                 MemberId = memberId
             });

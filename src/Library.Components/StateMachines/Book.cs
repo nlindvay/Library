@@ -1,20 +1,22 @@
-namespace Library.Components.StateMachines;
-
-using System;
-using MassTransit;
-
-public class BookInstance :
-    SagaStateMachineInstance
+namespace Library.Components.StateMachines
 {
-    public int CurrentState { get; set; }
+    using System;
+    using MassTransit;
 
-    public DateTime DateAdded { get; set; }
 
-    public Guid BookId { get; set; }
-    public string Title { get; set; }
-    public string Isbn { get; set; }
+    // ReSharper disable UnusedAutoPropertyAccessor.Global
+    public class Book :
+        SagaStateMachineInstance
+    {
+        public int CurrentState { get; set; }
 
-    public Guid? ReservationId { get; set; }
+        public DateTime DateAdded { get; set; }
 
-    public Guid CorrelationId { get; set; }
+        public string Title { get; set; }
+        public string Isbn { get; set; }
+
+        public Guid? ReservationId { get; set; }
+
+        public Guid CorrelationId { get; set; }
+    }
 }

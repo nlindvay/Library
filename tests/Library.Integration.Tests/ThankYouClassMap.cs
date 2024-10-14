@@ -13,7 +13,7 @@ namespace Library.Integration.Tests
         {
             entity.HasIndex(x => new
             {
-                x.BookInstanceId,
+                x.BookId,
                 x.MemberId
             }).IsUnique();
         }
