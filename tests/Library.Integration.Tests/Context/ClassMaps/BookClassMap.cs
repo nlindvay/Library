@@ -13,7 +13,8 @@ namespace Library.Integration.Tests
         {
             entity.HasIndex(x => new
             {
-                x.Isbn
+                x.Isbn,
+                x.Title
             }).IsUnique();
         }
     }
