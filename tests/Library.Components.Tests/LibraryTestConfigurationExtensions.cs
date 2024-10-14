@@ -11,10 +11,7 @@ public static class LibraryTestConfigurationExtensions
 {
     public static IServiceCollection ConfigureMassTransit(this IServiceCollection services, Action<IBusRegistrationConfigurator>? configure = null)
     {
-        services.AddQuartz(x =>
-            {
-                x.UseMicrosoftDependencyInjectionJobFactory();
-            })
+        services.AddQuartz()
             .AddMassTransitTestHarness(x =>
             {
                 x.SetKebabCaseEndpointNameFormatter();

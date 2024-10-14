@@ -1,17 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MassTransit.Quartz" Version="8.0.10" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="nunit" Version="3.12.0" />
-    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
+    <PackageReference Include="MassTransit.Quartz"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection"/>
+    <PackageReference Include="nunit"/>
+    <PackageReference Include="NUnit3TestAdapter"/>
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
   </ItemGroup>
 
   <ItemGroup>

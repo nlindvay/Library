@@ -16,10 +16,7 @@ public static class LibraryTestConfigurationExtensions
             {
                 IntegrationTestSagaDbContextFactory.Apply(x);
             })
-            .AddQuartz(x =>
-            {
-                x.UseMicrosoftDependencyInjectionJobFactory();
-            })
+            .AddQuartz()
             .AddHostedService<MigrationHostedService<IntegrationTestDbContext>>()
             .AddMassTransitTestHarness(x =>
             {
