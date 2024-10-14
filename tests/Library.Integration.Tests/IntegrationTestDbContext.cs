@@ -13,6 +13,6 @@ namespace Library.Integration.Tests
         {
         }
 
-        protected override IEnumerable<ISagaClassMap> Configurations => new[] { new ThankYouClassMap() };
+        protected override IEnumerable<ISagaClassMap> Configurations => [new ThankYouClassMap(), new BookClassMap()];
     }
 }

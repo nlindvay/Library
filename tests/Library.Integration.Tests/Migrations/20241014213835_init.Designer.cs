@@ -7,19 +7,51 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
+#nullable disable
+
 namespace Library.Integration.Tests.Migrations
 {
     [DbContext(typeof(IntegrationTestDbContext))]
-    [Migration("20201125041311_IntegrationTests")]
-    partial class IntegrationTests
+    [Migration("20241014213835_init")]
+    partial class init
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.10")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Library.Components.StateMachines.Book", b =>
+                {
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("CurrentState")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Isbn")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ReservationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("CorrelationId");
+
+                    b.HasIndex("Isbn")
+                        .IsUnique();
+
+                    b.ToTable("Book");
+                });
 
             modelBuilder.Entity("Library.Components.StateMachines.ThankYou", b =>
                 {

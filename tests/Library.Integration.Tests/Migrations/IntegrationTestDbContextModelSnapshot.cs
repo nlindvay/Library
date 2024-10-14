@@ -17,10 +17,38 @@ namespace Library.Integration.Tests.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.2")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("Library.Components.StateMachines.Book", b =>
+                {
+                    b.Property<Guid>("CorrelationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("CurrentState")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime>("DateAdded")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Isbn")
+                        .HasColumnType("text");
+
+                    b.Property<Guid?>("ReservationId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("CorrelationId");
+
+                    b.HasIndex("Isbn")
+                        .IsUnique();
+
+                    b.ToTable("Book");
+                });
 
             modelBuilder.Entity("Library.Components.StateMachines.ThankYou", b =>
                 {
