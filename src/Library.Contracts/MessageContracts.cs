@@ -11,7 +11,10 @@ namespace Library.Contracts
         {
             if (_initialized)
                 return;
-
+            GlobalTopology.Send.UseCorrelationId<OrderAdded>(x => x.OrderId);
+            GlobalTopology.Send.UseCorrelationId<OrderUpdated>(x => x.OrderId);
+            GlobalTopology.Send.UseCorrelationId<OrderCancellationRequested>(x => x.OrderId);
+            
             GlobalTopology.Send.UseCorrelationId<BookAdded>(x => x.BookId);
             GlobalTopology.Send.UseCorrelationId<BookCheckedOut>(x => x.BookId);
             GlobalTopology.Send.UseCorrelationId<RenewCheckOut>(x => x.CheckOutId);
